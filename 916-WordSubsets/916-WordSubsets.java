@@ -11,23 +11,19 @@ class Solution {
         }
 
         List<String> ans = new ArrayList<>();
-        for(String s: words1){
+        search: for(String s: words1){
             int t[] = new int[26];
             for(char ch: s.toCharArray()){
                 t[ch-'a']++;
             }
 
-            boolean isUniversal = true;
             for(int i = 0; i<26; i++){
                 if(t[i] < f[i]){
-                    isUniversal = false;
-                    break;
+                    continue search;
                 }
             }
-
-            if(isUniversal){
-                ans.add(s);
-            }
+            
+            ans.add(s);
         }
 
         return ans;
