@@ -5,37 +5,32 @@ public:
             return false;
         }
 
-        stack<int> open;
-        stack<int> both;
+        int opens = 0;
         for(int i = 0; i<s.length(); i++){
-            if(l[i] == '0'){
-                both.push(i);
-            }else if(s[i] == '('){
-                open.push(i);
+            if(l[i] == '0' || s[i] == '('){
+                opens++;
             }else{
-                if(open.size() > 0){
-                    open.pop();
-                    continue;
-                }
+                opens--;
 
-                if(both.size() > 0){
-                    both.pop();
-                    continue;
+                if(opens < 0){
+                    return false;
                 }
-
-                return false;
             }
         }
 
-        while(!open.empty()){
-            if(!both.empty() && both.top() > open.top()){
-                both.pop();
-                open.pop();
+        int close = 0;
+        for(int i = s.length()-1; i>=0; i--){
+            if(l[i] == '0' || s[i] == ')'){
+                close++;
             }else{
-                return false;
+                close--;
+
+                if(close < 0){
+                    return false;
+                }
             }
         }
 
-        return both.size() % 2 == 0;
+        return true;
     }
 };
