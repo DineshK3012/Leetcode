@@ -1,28 +1,22 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        vector<int> freq(128, 0);
-
+        map<char, int> mp;
         for(char ch: s){
-            freq[ch]++;
+            mp[ch]++;
         }
 
-        vector<pair<int,int>> arr;
-        for(char ch: s){
-            arr.push_back({freq[ch], ch});
+        priority_queue<pair<int, char>, vector<pair<int, char>>, less<pair<int, char>>> pq;
+        for(auto m: mp){
+            pq.push({m.second, m.first});
         }
 
-        sort(arr.begin(), arr.end(), [](const pair<int, char> &p1, const pair<int, char> & p2){
-            if(p1.first == p2.first){
-                return p1.second > p2.second;
-            }
+        string ans;
+        while(!pq.empty()){
+            auto p = pq.top();
+            pq.pop();
 
-            return p1.first > p2.first;
-        });
-
-        string ans = "";
-        for(pair<int, char> p: arr){
-            ans += p.second;
+            ans.append(p.first, p.second);
         }
 
         return ans;
