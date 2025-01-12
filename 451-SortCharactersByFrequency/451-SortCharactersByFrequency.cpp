@@ -6,7 +6,7 @@ public:
             mp[ch]++;
         }
 
-        priority_queue<pair<int, char>, vector<pair<int, char>>, less<pair<int, char>>> pq;
+        priority_queue<pair<int, char>> pq;
         for(auto m: mp){
             pq.push({m.second, m.first});
         }
