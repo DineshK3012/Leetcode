@@ -4,8 +4,8 @@ public:
         int n = s.length();
 
         int freq[26];
-        for(int i = 0; i<s.length(); i++){
-            int ind = s[i] - 'a';
+        for(char ch: s){
+            int ind = ch - 'a';
             freq[ind]++;
 
             if(freq[ind] == 3){
