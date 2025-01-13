@@ -3,14 +3,14 @@ public:
     int minimumLength(string s) {
         int n = s.length();
 
-        unordered_map<char, int> map;
+        int freq[26];
         for(int i = 0; i<s.length(); i++){
-            char ch = s[i];
-            map[ch]++;
+            int ind = s[i] - 'a';
+            freq[ind]++;
 
-            if(map[ch] == 3){
+            if(freq[ind] == 3){
                 n -= 2;
-                map[ch] -= 2;
+                freq[ind] -= 2;
             }
         }
 
