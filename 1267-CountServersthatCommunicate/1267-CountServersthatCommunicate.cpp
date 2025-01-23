@@ -1,52 +1,25 @@
 class Solution {
 public:
-    int countServers(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size();
+    int countServers(const vector<vector<int>>& grid) {
+        vector<int> rowCounts(size(grid[0]), 0), colCounts(size(grid), 0);
 
-        unordered_set<int> ans;
-        //checking rows
-        for(int i = 0; i<n; i++){
-            int count = 0;
-            for(int j = 0; j<m; j++){
-                if(grid[i][j] == 1){
-                    count++;
+        // Count servers in each row and each column
+        for (int row = 0; row < size(grid); ++row)
+            for (int col = 0; col < size(grid[0]); ++col)
+                if (grid[row][col]) {
+                    rowCounts[col]++;
+                    colCounts[row]++;
                 }
 
-                if(count > 1){
-                    break;
-                }
-            }
+        int communicableServersCount = 0;
 
-            if(count > 1){
-                for(int j = 0; j<m; j++){
-                    if(grid[i][j] == 1){
-                        ans.insert(i*m + j);
-                    }
-                }
-            }
-        }
-          
-        for(int j = 0; j<m; j++){
-            int count = 0;
-            for(int i = 0; i<n; i++){
-                if(grid[i][j] == 1){
-                    count++;
-                }
+        // Count servers that can communicate (in the same row or column)
+        for (int row = 0; row < size(grid); ++row)
+            for (int col = 0; col < size(grid[0]); ++col)
+                if (grid[row][col])
+                    communicableServersCount +=
+                        rowCounts[col] > 1 || colCounts[row] > 1;
 
-                if(count > 1){
-                    break;
-                }
-            }
-
-            if(count > 1){
-                for(int i = 0; i<n; i++){
-                    if(grid[i][j] == 1){
-                        ans.insert(i*m + j);
-                    }
-                }
-            }
-        }
-
-        return ans.size();
+        return communicableServersCount;
     }
 };
