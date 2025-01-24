@@ -19,11 +19,11 @@ public:
             }
         }
 
-        vector<int> safeNodes;
+        vector<bool> safeNodes(n, 0);
         while(!q.empty()){
             int u = q.front();
             q.pop();
-            safeNodes.push_back(u);
+            safeNodes[u] = true;
 
             for(int v: rgraph[u]){
                 indegree[v]--;
@@ -33,8 +33,14 @@ public:
                 }
             }
         }
-        sort(safeNodes.begin(), safeNodes.end());
+        
+        vector<int> ans;
+        for(int i = 0; i<n; i++){
+            if(safeNodes[i]){
+                ans.push_back(i);
+            }
+        }
 
-        return safeNodes;
+        return ans;
     }
 };
