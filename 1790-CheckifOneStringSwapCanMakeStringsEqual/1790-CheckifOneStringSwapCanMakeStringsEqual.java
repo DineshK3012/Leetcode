@@ -8,6 +8,10 @@ class Solution {
 
             if(s1.charAt(i) != s2.charAt(i)){
                 count++;
+
+                if(count > 2){
+                    return false;
+                }
             }
         }
 
