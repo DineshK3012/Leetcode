@@ -14,38 +14,39 @@
  * }
  */
 class Solution {
-    class info{
+    class NodeInfo{
+        boolean isBST;
         long max;
         long min;
-        boolean isBST;
 
-        public info(long mx, long mn, boolean isBST){
+        public NodeInfo(long mx, long mn, boolean isBst){
             this.max = mx;
             this.min = mn;
-            this.isBST = isBST;
+            this.isBST = isBst;
         }
     }
 
-    public info helper(TreeNode root){
+    public NodeInfo helper(TreeNode root){
         if(root == null){
-            return new info(Long.MIN_VALUE, Long.MAX_VALUE, true);
+            return new NodeInfo(Long.MIN_VALUE, Long.MAX_VALUE, true);
         }
 
         if(root.left == null && root.right == null){
-            return new info(root.val, root.val, true);
+            return new NodeInfo(root.val, root.val, true);
         }
 
-        info left = helper(root.left);
-        info right = helper(root.right);
+        NodeInfo left = helper(root.left);
+        NodeInfo right = helper(root.right);
 
-        long min = Math.min(root.val, left.min);
-        long max = Math.max(root.val, right.max);
+        long max = Math.max(root.val, Math.max(left.max, right.max));
+        long min = Math.min(root.val, Math.min(left.min, right.min));
         boolean isBST = true;
-        if(!left.isBST || !right.isBST || left.max >= root.val || right.min <= root.val){
+
+        if(root.val <= left.max || root.val >= right.min || !left.isBST || !right.isBST){
             isBST = false;
         }
 
-        return new info(max, min, isBST);
+        return new NodeInfo(max, min, isBST);
     }
 
     public boolean isValidBST(TreeNode root) {
