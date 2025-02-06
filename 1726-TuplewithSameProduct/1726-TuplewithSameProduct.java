@@ -1,6 +1,6 @@
 class Solution {
     public int tupleSameProduct(int[] nums) {
-        Arrays.sort(nums);
+        // Arrays.sort(nums);
 
         HashMap<Long, Integer> map = new HashMap<>();
         int n = nums.length;
