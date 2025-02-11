@@ -10,18 +10,19 @@
  * };
  */
 class BSTIterator {
-public:
+private:
     stack<TreeNode*> stk;
 
-    BSTIterator(TreeNode* root) {
-        pushToStack(root);
-    }
-    
     void pushToStack(TreeNode* node){
         while(node != NULL){
             stk.push(node);
             node = node->left;
         }
+    }
+
+public:
+    BSTIterator(TreeNode* root) {
+        pushToStack(root);
     }
 
     int next() {
