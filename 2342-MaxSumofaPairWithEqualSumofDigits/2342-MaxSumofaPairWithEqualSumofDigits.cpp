@@ -11,16 +11,20 @@ public:
     }
 
     int maximumSum(vector<int>& nums) {
-        unordered_map<int, priority_queue<int>> map;
+        unordered_map<int, priority_queue<int, vector<int>, greater<int>>> map;
 
         for(int num: nums){
             int sum = findSumOfDigits(num);
             map[sum].push(num);
+
+            if(map[sum].size() > 2){
+                map[sum].pop();
+            }
         }
 
         int ans = -1;
         for(auto& [sum, pq]: map){
-            if(pq.size() >= 2){
+            if(pq.size() == 2){
                 int first = pq.top();
                 pq.pop();
                 int second = pq.top();
