@@ -20,12 +20,12 @@ class Solution {
     }
 
     public String countAndSay(int n) {
-        if(n == 1){
-            return "1";
+        String s = "1";
+
+        for(int i = 2; i<=n; i++){
+            s = rle(s);
         }
 
-        String s = countAndSay(n-1);
-
-        return rle(s);
+        return s;
     }
 }
