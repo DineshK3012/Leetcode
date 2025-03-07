@@ -6,8 +6,10 @@ class Solution {
         isPrime[1] = false;
 
         for(int i = 2; i*i<=n; i++){
-            for(int j = i*i; j<=n; j+=i){
-                isPrime[j] = false;
+            if(isPrime[i]){
+                for(int j = i*i; j<=n; j+=i){
+                    isPrime[j] = false;
+                }   
             }
         }
 
@@ -15,8 +17,8 @@ class Solution {
     }   
 
     public int[] closestPrimes(int left, int right) {
-        boolean[] isPrime = sieve(right);
         ArrayList<Integer> primes = new ArrayList<>();
+        boolean isPrime[] = sieve(right);
         for(int i = left; i<=right; i++){
             if(isPrime[i]){
                 primes.add(i);
