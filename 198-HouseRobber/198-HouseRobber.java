@@ -18,20 +18,19 @@ class Solution {
         if(n == 1)  return nums[0];
         if(n == 2)  return Math.max(nums[0], nums[1]);
 
-        int[] dp = new int[n];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
-
+        int p1 = nums[0];
+        int p2 = Math.max(nums[0], nums[1]);
         for(int i = 2; i<n; i++){
             //not robbing the current house
-            int ans1 = dp[i-1];
+            int ans1 = p2;
 
             //robbing the current house
-            int ans2 = nums[i] + dp[i-2];
+            int ans2 = nums[i] + p1;
 
-            dp[i] = Math.max(ans1, ans2);
+            p1 = p2;
+            p2 = Math.max(ans1, ans2);
         }
 
-        return dp[n-1];
+        return p2;
     }
 }
