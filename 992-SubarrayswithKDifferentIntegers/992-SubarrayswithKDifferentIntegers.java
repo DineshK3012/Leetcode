@@ -1,18 +1,20 @@
 class Solution {
     private int countAtLeast(int nums[], int k){
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int freq[] = new int[nums.length + 1];
         int ans = 0;
-        int i = 0, j = 0;
+        int i = 0, j = 0, distinct = 0;
         while(j < nums.length){
-            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+            if(freq[nums[j]] == 0){
+                distinct++;
+            }
+            freq[nums[j]]++;
 
-            while(map.size() >= k){
+            while(distinct >= k){
                 ans += (nums.length - j);
-                int f = map.get(nums[i]);
-                if(f == 1){
-                    map.remove(nums[i]);
-                }else{
-                    map.put(nums[i], f - 1);
+                freq[nums[i]]--;
+
+                if(freq[nums[i]] == 0){
+                    distinct--;
                 }
                 i++;
             }
