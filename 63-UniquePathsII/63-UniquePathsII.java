@@ -8,9 +8,7 @@ class Solution {
         int[] dp = new int[n];
         dp[0] = 1;
         for(int i = 1; i<n; i++){
-             if(grid[0][i] == 1){
-                dp[i] = 0;
-            }else{
+            if(grid[0][i] == 0){
                 dp[i] = dp[i-1];
             }
         }
